@@ -1,6 +1,11 @@
 {
   "name": "dsh-title-prefix",
   "version": "0.1.0",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
   "private": true,
   "description": "DSH 插件：给每条会话标题加上所属项目名前缀，例如 my-app · 修复登录超时",
   "type": "module",
@@ -10,6 +15,7 @@
   },
   "files": [
     "index.js",
+    "cordis.patch.yml",
     "README.md"
   ],
   "scripts": {
