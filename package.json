@@ -5,13 +5,27 @@
   "keywords": [
     "dsh",
     "dsh-plugin",
+    "deepseek-harness",
     "session-title"
   ],
+  "author": "dotdance <49607494+dotdance@users.noreply.github.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dotdance/dsh-title-prefix.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dotdance/dsh-title-prefix/issues"
+  },
+  "homepage": "https://github.com/dotdance/dsh-title-prefix#readme",
   "type": "module",
   "main": "index.js",
   "exports": {
     ".": "./index.js"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "files": [
     "index.js",
