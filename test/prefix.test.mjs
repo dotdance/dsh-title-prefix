@@ -23,15 +23,22 @@ after(() => {
   fs.rmSync(SANDBOX, { recursive: true, force: true });
 });
 
-test('向上找到最近的 .git，用它的目录名当项目名', async () => {
+test('默认只取工作目录名（workspace 名），不向上找 .git', async () => {
   const { emit } = mount();
+  const target = session(DEEP);
+  await feed(emit, target, titleEvent('会话标题是怎么生成的'));
+  assert.deepEqual(titles(target), ['inner · 会话标题是怎么生成的']);
+});
+
+test('配了 rootMarkers 时向上找到最近的 .git，用它的目录名当项目名', async () => {
+  const { emit } = mount({ rootMarkers: ['.git'] });
   const target = session(DEEP);
   await feed(emit, target, titleEvent('会话标题是怎么生成的'));
   assert.deepEqual(titles(target), ['root · 会话标题是怎么生成的']);
 });
 
-test('找不到任何 .git 时退化为工作目录名', async () => {
-  const { emit } = mount({ maxDepth: 0 }); // 只看给定目录本身
+test('配了 rootMarkers 但一路没命中时仍用工作目录名', async () => {
+  const { emit } = mount({ rootMarkers: ['.git'], maxDepth: 0 }); // 只看给定目录本身
   const target = session(PLAIN);
   await feed(emit, target, titleEvent('会话标题是怎么生成的'));
   assert.deepEqual(titles(target), ['plain · 会话标题是怎么生成的']);

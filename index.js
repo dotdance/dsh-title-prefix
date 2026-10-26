@@ -1,9 +1,10 @@
 /**
  * dsh-title-prefix — 给每条会话标题加上所属项目名前缀，例如 `my-app · 修复登录超时`。
  *
- * 项目名怎么来：从会话 cwd 逐级向上找，第一个含 rootMarkers 条目（默认 `.git`）的
- * 目录取其目录名；一路找不到就退化为 cwd 自身的名字。纯规则计算，不经过 AI，
- * 所以项目名不会被拼错、不会被翻译。
+ * 项目名怎么来：默认就取会话工作目录（workspace）自身的目录名。纯规则计算，不经过
+ * AI，所以项目名不会被拼错、不会被翻译。也可以配 rootMarkers（例如 ['.git']）改成
+ * 「从 cwd 向上找第一个含该标记的目录，取其目录名」——适合仓库根名字才代表项目的场景，
+ * 但默认不这么做：不是每个用户都用 git。
  *
  * 为什么不调 `ctx.sessionTitle.rename()`
  * -------------------------------------
@@ -35,9 +36,9 @@ const DEFAULTS = {
   projectName: '',
   /** 按目录精确覆盖的项目名，例如 { "/path/to/my-app": "我的应用" }。 */
   projectNames: {},
-  /** 标记项目根的目录条目；向上查找时遇到第一个命中的目录即停止。 */
-  rootMarkers: ['.git'],
-  /** 向上查找项目根时最多检查几层祖先目录。 */
+  /** 标记项目根的目录条目，例如 ['.git']；为空（默认）时直接用工作目录自身的名字。 */
+  rootMarkers: [],
+  /** 向上查找项目根时最多检查几层祖先目录；rootMarkers 为空时该项不起作用。 */
   maxDepth: 8,
   /** 是否也给子会话（subagent）加前缀。 */
   includeSubagents: true,
@@ -58,8 +59,12 @@ function truncateUtf8(text, maxBytes) {
   return out;
 }
 
-/** 最近的、含任一 rootMarkers 条目的祖先目录名；找不到就用 cwd 自身的名字。 */
+/**
+ * 项目名：默认是 cwd 自身的目录名（workspace 名）。
+ * 配了 rootMarkers 时改为向上找最近的、含任一标记的祖先目录名；一路找不到仍用 cwd 的名字。
+ */
 function projectRootName(cwd, markers, maxDepth) {
+  if (markers.length === 0) return path.basename(cwd); // 默认：只用 workspace 名，不碰文件系统
   let dir = cwd;
   for (let depth = 0; depth <= maxDepth; depth += 1) {
     // existsSync 自己吞掉所有错误（EACCES/ENOTDIR 等），返回 false，无需再包 try/catch。
