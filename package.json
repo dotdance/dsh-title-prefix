@@ -1,13 +1,13 @@
 {
   "name": "dsh-title-prefix",
   "version": "0.1.0",
-  "dsh": {
-    "bundle": {
-      "patch": "./cordis.patch.yml"
-    }
-  },
-  "private": true,
   "description": "DSH 插件：给每条会话标题加上所属项目名前缀，例如 my-app · 修复登录超时",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "session-title"
+  ],
+  "license": "MIT",
   "type": "module",
   "main": "index.js",
   "exports": {
@@ -18,16 +18,14 @@
     "cordis.patch.yml",
     "README.md"
   ],
-  "scripts": {
-    "test": "node --test test/",
-    "workspaces": "node scripts/workspaces.mjs"
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
   },
-  "keywords": [
-    "dsh",
-    "dsh-plugin",
-    "session-title"
-  ],
-  "license": "UNLICENSED",
+  "scripts": {
+    "test": "node --test test/"
+  },
   "engines": {
     "node": ">=18"
   }

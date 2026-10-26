@@ -1,10 +1,12 @@
-# dsh bundle patch: inserts this plugin into a profile's layer stack.
+# dsh bundle patch: 把这个插件插入某个 profile 的层栈。
 #
-# 这是本插件的 bundle 层（package.json 的 dsh.bundle.patch 指向本文件）。
-# 安装：dsh plugin --profile web add link:/Users/go/proj/dsh-title-prefix
+# 本文件是插件的 bundle 层（由 package.json 的 dsh.bundle.patch 指向）。
+# 安装：dsh plugin --profile <profile> add link:<本仓库路径>
 #   —— 该命令跑 pnpm 安装，并把 dsh-title-prefix 追加进 profile 的 dsh.profile.bundles；
 #      DSH 启动时按 bundles 顺序叠加各层，本文件负责插入下面这一条。
-# 关闭：在市场界面里停用，或在 profile 的 cordis.patch.yml 里写 `- id: dsh-title-prefix` + `disabled: true`。
+# 关闭：在 Web 侧栏「插件」页停用，或在 profile 的 cordis.patch.yml 里写下面两行。
+#   - id: dsh-title-prefix
+#     disabled: true
 - insert:
     - id: dsh-title-prefix
       name: 'dsh-title-prefix'
