@@ -17,7 +17,7 @@ DSH plugin: **prefixes every session title with the name of its workspace / proj
 
 适合**会话列表单列平铺展示**时使用：不必点开每条会话，就能看出它属于哪个 workspace / 项目。
 
-![侧栏会话列表：每条标题都带项目名前缀](https://raw.githubusercontent.com/dotdance/dsh-title-prefix/main/assets/sidebar-session-list.png)
+<img src="https://raw.githubusercontent.com/dotdance/dsh-title-prefix/main/assets/sidebar-session-list.png" width="320" alt="侧栏会话列表：每条标题都带项目名前缀">
 
 ### 安装
 
@@ -40,7 +40,7 @@ Both fallback titles and model-generated titles get the prefix; titles you renam
 
 Useful when the **session list is a single flat column**: you can tell which workspace / project each conversation belongs to without opening it.
 
-![Session list in the sidebar: every title carries its project prefix](https://raw.githubusercontent.com/dotdance/dsh-title-prefix/main/assets/sidebar-session-list.png)
+<img src="https://raw.githubusercontent.com/dotdance/dsh-title-prefix/main/assets/sidebar-session-list.png" width="320" alt="Session list in the sidebar: every title carries its project prefix">
 
 ### Install
 
